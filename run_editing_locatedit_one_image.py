@@ -48,8 +48,8 @@ if __name__ == "__main__":
     parser.add_argument('--edit_method', type=str, default="unifiedinversion+p2p")
 
     parser.add_argument('--ip_adapter_scale', type=float, default=0.3821)
-    parser.add_argument('--lb_th', type=float, default=(0.5, 0.7987), nargs='+')
-    parser.add_argument('--lb_alpha', type=int, default= 5)
+    parser.add_argument('--lb_th', type=float, default=(0.2, 0.8), nargs='+')
+    parser.add_argument('--lb_alpha', type=int, default= 4)
     parser.add_argument('--threshold', type=float, default=0.5)
     parser.add_argument('--lb_lambda', type=float, default=0.5)
     parser.add_argument('--per', type=float, default=92.0)

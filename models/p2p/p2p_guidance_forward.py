@@ -53,11 +53,18 @@ def unified_inversion_p2p_guidance_forward(
         source_noise_pred = noise_pred_uncond[[0]] + source_guidance_scale * (noise_prediction_text[[0]] - noise_pred_uncond[[0]])
         target_noise_pred = noise_pred_uncond[[1]] + target_guidance_scale * (noise_prediction_text[[1]] - noise_pred_uncond[[1]])
         noise_pred = torch.cat([source_noise_pred, target_noise_pred], dim=0)
+        editing_mask = None
+        if controller.local_blend is not None:
+            editing_mask = controller.local_blend.get_mask(controller.local_blend.th[1])
+            if editing_mask is not None:
+                # print(f"editing mask: {editing_mask.shape}")
+                editing_mask = editing_mask[:1] + editing_mask[1:]
         latents = model.scheduler.edit_step(
             model_output=noise_pred,
             timestep=t,
             source_original_sample=x_0,
             sample=latents,
+            editing_mask=editing_mask,
         )
         latents = controller.step_callback(latents)
     return latents, latent

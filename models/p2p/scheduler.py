@@ -39,6 +39,7 @@ class EDDIMScheduler(DDIMScheduler):
         timestep: int,
         source_original_sample: torch.FloatTensor,
         sample: torch.FloatTensor,
+        editing_mask: torch.FloatTensor = None,
         use_clipped_model_output: bool = False,
         generator=None,
         variance_noise: Optional[torch.FloatTensor] = None,
@@ -77,4 +78,18 @@ class EDDIMScheduler(DDIMScheduler):
         std_dev_t = self.eta * variance ** (0.5)
         b_t = ((1 - alpha_prod_t_prev - std_dev_t ** 2) / (1 - alpha_prod_t)).sqrt()
         prev_sample = (alpha_prod_t_prev.sqrt() - alpha_prod_t.sqrt() * b_t) * pred_original_sample + b_t * sample
+        if (editing_mask is not None) and (editing_mask.sum() > 0):
+            if variance_noise is not None and generator is not None:
+                raise ValueError(
+                    "Cannot pass both generator and variance_noise. Please make sure that either `generator` or"
+                    " `variance_noise` stays `None`."
+                )
+
+            if variance_noise is None:
+                variance_noise = randn_tensor(
+                    (1, *model_output.shape[1:]), generator=generator, device=model_output.device, dtype=model_output.dtype
+                ).repeat(model_output.shape[0], 1, 1, 1)
+            variance = std_dev_t * variance_noise
+
+            prev_sample = prev_sample + variance
         return prev_sample
