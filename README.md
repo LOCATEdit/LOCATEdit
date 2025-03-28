@@ -11,34 +11,6 @@ conda activate locatedit
 pip install -r requirements.txt
 ```
 
-### Benchmark Download ⬇️
-<span id="benchmark-download"></span>
-
-You can download the benchmark PIE-Bench (Prompt-driven Image Editing Benchmark). The data structure should be like:
-
-```python
-|-- data
-    |-- annotation_images
-        |-- 0_random_140
-            |-- 000000000000.jpg
-            |-- 000000000001.jpg
-            |-- ...
-        |-- 1_change_object_80
-            |-- 1_artificial
-                |-- 1_animal
-                        |-- 111000000000.jpg
-                        |-- 111000000001.jpg
-                        |-- ...
-                |-- 2_human
-                |-- 3_indoor
-                |-- 4_outdoor
-            |-- 2_natural
-                |-- ...
-        |-- ...
-    |-- mapping_file.json # the mapping file of PIE-Bench, contains editing text, blended word, and mask annotation
-```
-
-
 ## 🏃🏼 Running Scripts
 <span id="running-scripts"></span>
 
