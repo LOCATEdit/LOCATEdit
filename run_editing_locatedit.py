@@ -11,7 +11,6 @@ from evaluation.evaluate import calculate_metric
 from evaluation.matrics_calculator import MetricsCalculator
 from diffusers import DDIMScheduler, DPMSolverMultistepScheduler
 from models.p2p.scheduler import EDDIMScheduler
-from models.p2p.scheduler_dev import DDIMSchedulerDev
 from models.p2p_editor import P2PEditor
 from my_utils.utils import get_diff_word_inds
 
