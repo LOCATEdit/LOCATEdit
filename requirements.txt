@@ -1,5 +1,6 @@
 diffusers==0.32.2
-gradio==4.43.0
+pydantic==1.10.3
+gradio==3.50.2
 matplotlib
 numpy==2.2.3
 pandas==2.2.3
