@@ -179,7 +179,7 @@ class P2PEditor:
             ious = ious if len(ious) > 0 else None
         else:
             image_instruct = txt_draw(f"source prompt: {prompt_src}\ntarget prompt: {prompt_tar}")
-            out_image = np.concatenate([image_instruct, image_gt, images[0], images[-1]], axis=1)
+            out_image = np.concatenate([images[-1]], axis=1)
             ious = None
         out_image = Image.fromarray(out_image)
         return out_image, ious
